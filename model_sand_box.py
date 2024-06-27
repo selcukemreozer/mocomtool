@@ -47,7 +47,7 @@ print(message.content)
 
 # gemini api key: AIzaSyDZmyU7ixdQuhjoJskzk_HXpV_CQ2XPMAk
 
-
+"""
 import google.generativeai as genai
 import PIL.Image
 import os # connect with os library
@@ -60,3 +60,18 @@ genai.configure(api_key=googleapi) # connect with the api key
 model = genai.GenerativeModel(model_name="gemini-1.5-flash")
 response = model.generate_content(["hello?"])
 print(response.text)
+"""
+##############################################################################################################
+"""
+import transformers
+import torch
+
+model_id = "meta-llama/Meta-Llama-3-8B-Instruct"
+
+pipeline = transformers.pipeline(
+  "text-generation",
+  model="meta-llama/Meta-Llama-3-8B-Instruct",
+  model_kwargs={"torch_dtype": torch.bfloat16},
+  device="cuda",
+)
+"""
