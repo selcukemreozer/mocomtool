@@ -31,7 +31,7 @@ import anthropic
 
 client = anthropic.Anthropic(
     # defaults to os.environ.get("ANTHROPIC_API_KEY")
-    api_key="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",
+    api_key="api_key",
 )
 message = client.messages.create(
     model="claude-3-5-sonnet-20240620",
