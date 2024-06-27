@@ -25,8 +25,7 @@ for chunk in stream:
 
 ##############################################################################################################
 """
-# claude api key: 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
-
+# claude api key: secret_
 
 import anthropic
 
@@ -45,7 +44,7 @@ print(message.content)
 """
 ##############################################################################################################
 
-# gemini api key: AIzaSyDZmyU7ixdQuhjoJskzk_HXpV_CQ2XPMAk
+# gemini api key: secret_
 
 """
 import google.generativeai as genai
