@@ -42,5 +42,6 @@ def compare(prompt:str, gemini: bool=False, claude: bool=False, gpt: bool=False,
         console.print(text_calc)
         numbers = prompt.split('*')
         print(f"{numbers[0]} * {numbers[1]} = {int(numbers[0])*int(numbers[1])}")
+
 if __name__ == "__main__":
     app()
