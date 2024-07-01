@@ -11,11 +11,16 @@ MocomTool(Model Compare Tool)is a CLI App that allows developers to compare LLM 
 - Claude3.5 Sonnet(_soon_)
 
 ## What Exactly MocomTool is
-MocomTool does not enable users to reach LLM models without `API KEYs` provided by services. In order to use MocomTool, you need a `.env` file that includes API keys.
-You can find a template for the `.env` file named `env_template` in this repo. Check it. The tool is a helper for developers for choosing the best LLM model in their case.
+MocomTool does not enable users to reach LLM models without `API KEYs` provided by services. To use MocomTool, you need a `.env` file that includes API keys.
+You can find a template for the `.env` file named `env_template` in this repo. Check it. The tool is a helper for developers in choosing the best LLM model in their case.
 
+> [!TIP]
+> Before starting, you might prefer to install requirements for an easy installation.
+```bash
+(.venv) user@macbook-air ~ % pip install -r requirements.txt
+```
 ## Giving Basic Prompts and Choosing Models for Comparing
-After installing MocomTool from this repo, you will run `mocom.py` in `Terminal`. MocomTool was designed as a CLI App. So you can use it from Terminal easily.
+After installing MocomTool from this repo, you will run `mocom.py` in `Terminal`. MocomTool was designed as a CLI App. So you can use it from the Terminal easily.
 
 #### Function [introduce]
 MocomTool includes a guide. When you are stuck while using MocomTool call the `[introduce]` function, to see functions and parameters, which you can use.
