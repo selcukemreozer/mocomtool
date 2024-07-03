@@ -4,9 +4,45 @@ from rich.console import Console
 from rich.text import Text
 import os
 import typer
+import json
 
 app = typer.Typer()
 console = Console()
+
+def callMultimodel(info:str, gemini: bool=False, claude: bool=False, gpt: bool=False, calculator: bool=False, promptnumber: int=0):
+        # prompt is being printed to the console
+        text_prompt = Text(f"\nprompt{promptnumber}: {info}")
+        text_prompt.stylize("bold red",0,8)
+        console.print(text_prompt)
+        # if claude is True, call claude
+        if claude:
+            text_anth = Text("\nClaude 3.5:")
+            text_anth.stylize("bold green")
+            console.print(text_anth)
+            print("claude 3.5 is not implemented yet")
+        
+        # if gpt is True, call gpt
+        if gpt:
+            text_open = Text("\n\nchatGPT:")
+            text_open.stylize("bold green")
+            console.print(text_open)
+            call_gpt(info)
+        
+        # if gemini is True, call gemini
+        if gemini:
+            text_gem = Text("\n\nGemini:")
+            text_gem.stylize("bold green")
+            console.print(text_gem)
+            call_gemini(info)
+            
+        if calculator and '*' in info:
+            text_calc = Text("\n\nCalculator:")
+            text_calc.stylize("bold green")
+            console.print(text_calc)
+            numbers = info.split('*')
+            print(f"{numbers[0]} * {numbers[1]} = {int(numbers[0])*int(numbers[1])}")
+        
+        
 
 @app.command()
 def introduce():
@@ -23,39 +59,18 @@ def introduce():
     print("\n\n[--calculator] flag is just for multiplying two numbers for now.")    
 
 @app.command()
-def compare(prompt:str, gemini: bool=False, claude: bool=False, gpt: bool=False, calculator: bool=False):
-    # prompt is being printed to the console
-    text_prompt = Text(f"\nprompt: {prompt}")
-    text_prompt.stylize("bold red",0,8)
-    console.print(text_prompt)
+def compare(info:str, gemini: bool=False, claude: bool=False, gpt: bool=False, calculator: bool=False, mprompt: bool=False):
     
-    # if claude is True, call claude
-    if claude:
-        text_anth = Text("\nClaude 3.5:")
-        text_anth.stylize("bold green")
-        console.print(text_anth)
-        print("claude 3.5 is not implemented yet")
-    
-    # if gpt is True, call gpt
-    if gpt:
-        text_open = Text("\n\nchatGPT:")
-        text_open.stylize("bold green")
-        console.print(text_open)
-        call_gpt(prompt)
-    
-    # if gemini is True, call gemini
-    if gemini:
-        text_gem = Text("\n\nGemini:")
-        text_gem.stylize("bold green")
-        console.print(text_gem)
-        call_gemini(prompt)
-        
-    if calculator and '*' in prompt:
-        text_calc = Text("\n\nCalculator:")
-        text_calc.stylize("bold green")
-        console.print(text_calc)
-        numbers = prompt.split('*')
-        print(f"{numbers[0]} * {numbers[1]} = {int(numbers[0])*int(numbers[1])}")
-
+    if mprompt: 
+        # if the prompt is a json file with multiple prompts, 
+        # read the file and call the models for each prompt
+        file = open(info, 'r')
+        data = json.load(file)
+        for index, prompt in enumerate(data):
+            callMultimodel(data[prompt]["prompt"], gemini, claude, gpt, calculator, promptnumber = index+1)
+    else:
+        # if the prompt is a single prompt, 
+        # call the models for just one prompt and info is the prompt not a file
+        callMultimodel(info, gemini, claude, gpt, calculator, promptnumber = 1)
 if __name__ == "__main__":
     app()
