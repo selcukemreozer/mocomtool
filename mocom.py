@@ -5,7 +5,8 @@ from rich.text import Text
 import typer
 import json
 from terminal import clear_terminal, position
-from fileprocess import write_to_json
+from fileprocess import create_json_file, write_to_json
+from introduce import Introduce
 
 clear_terminal()
 
@@ -14,77 +15,76 @@ console = Console()
 
 # to prevent confusion, program will call the models in this function
 # and get the scores of the models from the user to save in the json file
-def callMultimodel(jsonfile:str, prompt:str, gemini: bool=False, claude: bool=False, gpt: bool=False, calculator: bool=False, promptnumber: int=0):
-        # prompt is being printed to the console
-        text_prompt = Text(f"\nprompt{promptnumber}: {prompt}")
-        text_prompt.stylize("bold red",0,8)
-        console.print(text_prompt)
+def callMultimodel(newFileName:str,prompt:str, gemini: bool=False, claude: bool=False, gpt: bool=False, calculator: bool=False, promptnumber: int=0):
+    # prompt is being printed to the console
+    text_prompt = Text(f"\nprompt {['' if promptnumber == 0 else promptnumber][0]}: {prompt}")
+    text_prompt.stylize("bold red",0,10)
+    console.print(text_prompt)
+    
+    modelDict = { # the dictionary that holds which models were called and their functions
+        "gemini": [gemini, call_gemini],
+        "gpt":    [gpt, call_gpt],
+        "claude": [claude,print],
+        "calculator": [calculator,print] # calculator is not ready yet
+                 }
+    currentPromptDict = {f"prompt{promptnumber}": {"prompt": prompt}}
+    list_of_responses = dict()
+    
+    for modelName in modelDict:
         
-        # if claude is True, call claude
-        if claude:
-            text_cld = Text("\nClaude 3.5:")
-            text_cld.stylize("bold green")
-            console.print(text_cld)
-            print("claude 3.5 is not implemented yet")
-        
-        # if gpt is True, call gpt
-        if gpt:
-            text_gpt = Text("\n\nchatGPT:")
-            text_gpt.stylize("bold green")
-            console.print(text_gpt)
-            call_gpt(prompt)
-        
-        # if gemini is True, call gemini
-        if gemini:
-            text_gem = Text("\n\nGemini:")
-            text_gem.stylize("bold green")
-            console.print(text_gem)
-            call_gemini(prompt)
+        if modelDict[modelName][0]:
+            text_model = Text(f"\n{modelName}:")
+            text_model.stylize("bold green")
+            console.print(text_model)
+            theResponse = modelDict[modelName][1](prompt) # call the model function with the prompt
+            print(theResponse)
             
-        if calculator and '*' in prompt:
-            text_calc = Text("\n\nCalculator:")
-            text_calc.stylize("bold green")
-            console.print(text_calc)
-            numbers = prompt.split('*')
-            print(f"{numbers[0]} * {numbers[1]} = {int(numbers[0])*int(numbers[1])}")
+            list_of_responses.update( # save the responses in a dictionary
+                {
+                modelName: theResponse   
+                })
+    if promptnumber != 0: # if there are more prompts, ask the user to rate the models
+        currentPromptDict[f"prompt{promptnumber}"].update({"responses":list_of_responses})
+        # above code saves the responses of the models in the dictionary list_of_responses
         
-        dict = {"gemini": gemini, "claude": claude, "gpt": gpt}
+        scores = dict()
         
-        for model in dict: # give score to the models and save it in the json file
-            if dict[model]:
-                write_to_json(jsonfile, {"score":int(input(f"Rate the {model} model from 1 to 10: "))})
-        print(dict)
-        
-        
-@app.command()
-def introduce():
-    text_intro = Text("\nMocomTool:")
-    text_intro.stylize("bold red")
-    console.print(text_intro)
-    print("MocomTool is a CLI tool that allows you to compare the responses of different models to a given prompt.")
-    print(("_"*20)+"\n\nYou can compare the responses of OpenAI's GPT-3.5-turbo model, Google's Gemini-1.5-flash model, and a calculator.")
-    print(("_"*20)+"\n\nYou can also compare the responses of Claude 3.5, but it is not implemented yet.")
-    print(("_"*20)+"\n\nYou can use the \n[\n --gemini\n --claude\n --gpt\n --calculator(it just can multiply)\n]\n flags to specify which models you want to compare.")
-    print(("_"*20)+"\n\nYou can use the [--help] flag to get more information about the available flags.")
-    print(("_"*20)+"\n\nYou can use the [--introduce] flag to get a brief introduction to Mocom.")
-    print(("_"*20)+"\n\nYou can use the [--compare] flag to compare the responses of the models to a given prompt.")
-    print("\n\n[--calculator] flag is just for multiplying two numbers for now.")    
-
+        for modelName in list_of_responses:
+            
+            scores.update({
+                modelName: int(input(f"Rate the {modelName}(1-9): "))
+                })
+            
+        currentPromptDict[f"prompt{promptnumber}"].update({"scores": scores})
+        return currentPromptDict
+            
 @app.command()
 def compare(info:str, gemini: bool=False, claude: bool=False, gpt: bool=False, calculator: bool=False, mprompt: bool=False):
     
-    if mprompt: 
+    if mprompt:
         # if the prompt is a json file with multiple prompts, 
         # read the file and call the models for each prompt
         file = open(info, 'r')
         data = json.load(file)
+        
+    newFile = input("Do you want to save the responses in a new json file? (y/n): ")
+    if newFile == 'y':
+        jsonfileName = input("Enter the name of the json file: ") + ".json"
+        create_json_file(jsonfileName)
+        
         for index, prompt in enumerate(data):
-            callMultimodel(info, data[prompt]["prompt"], gemini, claude, gpt, calculator, promptnumber = index+1)
-            input("Press Enter to continue...")
+            results = callMultimodel(newFileName=jsonfileName,prompt=data[prompt]["prompt"], gemini=gemini, claude=claude, gpt=gpt, calculator=calculator, promptnumber = index+1)
+            write_to_json(jsonfileName, results)
             clear_terminal()
+            
     else:
         # if the prompt is a single prompt, 
         # call the models for just one prompt and info is the prompt, not a file
-        callMultimodel(info, gemini, claude, gpt, calculator, promptnumber = 1)
+        callMultimodel(newFileName='', prompt=info, gemini=gemini, claude=claude, gpt=gpt, calculator=calculator)
+        
+@app.command()
+def introduce():
+    Introduce()
+    
 if __name__ == "__main__":
     app()

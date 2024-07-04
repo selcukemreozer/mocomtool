@@ -17,12 +17,11 @@ def write_to_json(filename, data):
   with open(filename, "w") as f:
     json.dump(existing_data, f, indent=4)
 
-# Example usage
-#new_data = {"name": "Bob", "age": 25}
-#write_to_json("data.json", new_data)
- 
+
 # new json file creating
-def create_json_file(data_top_level):
-    with open("data.json", "w") as f:
+def create_json_file(name,data_top_level=dict()):
+    with open(name, "w") as f:
         json.dump(data_top_level, f, indent=4)
+    print(f"\nFile {name}.json is created.")
+    return "data.json"
 

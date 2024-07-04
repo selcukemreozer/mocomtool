@@ -2,8 +2,9 @@
 from openai import OpenAI
 import os
 
-response = str()
+
 def call_gpt(prompt:str='just write <no prompt>'):
+    response = str()
     openaiapi: str = os.environ.get("OPENAI_API_KEY")
     client = OpenAI(api_key=openaiapi)
 
@@ -18,10 +19,12 @@ def call_gpt(prompt:str='just write <no prompt>'):
 
     for chunk in stream:
         if chunk.choices[0].delta.content is not None:
-            print(chunk.choices[0].delta.content, end="")
-
+            response +=chunk.choices[0].delta.content
+    
+    return response
           
 def call_gpt_test(prompt:str='just write <no prompt>'):
+    response = str()
     openaiapi: str = os.environ.get("OPENAI_API_KEY")
     client = OpenAI(api_key=openaiapi)
 
