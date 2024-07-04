@@ -19,14 +19,15 @@ You can find a template for the `.env` file named `env_template` in this repo. C
 ```bash
 (.venv) user@macbook-air ~ % pip install -r requirements.txt
 ```
-## Giving Basic Prompts and Choosing Models for Comparing
-After installing MocomTool from this repo, you will run `mocom.py` in `Terminal`. MocomTool was designed as a CLI App. So you can use it from the Terminal easily.
-
+## Help
 #### Function [introduce]
 MocomTool includes a guide. When you are stuck while using MocomTool call the `[introduce]` function, to see functions and parameters, which you can use.
 ```bash
 (.venv) user@macbook-air ~ % python mocom.py introduce
 ```
+## Giving Basic Prompts and Choosing Models for Comparing
+After installing MocomTool from this repo, you will run `mocom.py` in `Terminal`. MocomTool was designed as a CLI App. So you can use it from the Terminal easily.
+
 #### Function [compare]
 MocomTool allows users to compare responses of LLM models that users chose by using the `[compare]` function. To use it, call the function, write your prompt `’my prompt in backticks’`, and choose the models that you want to compare. A distinct example below:
 
