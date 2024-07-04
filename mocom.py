@@ -2,48 +2,60 @@ from callGemini import call_gemini
 from callGPT import call_gpt
 from rich.console import Console
 from rich.text import Text
-import os
 import typer
 import json
+from terminal import clear_terminal, position
+from fileprocess import write_to_json
+
+clear_terminal()
 
 app = typer.Typer()
 console = Console()
 
-def callMultimodel(info:str, gemini: bool=False, claude: bool=False, gpt: bool=False, calculator: bool=False, promptnumber: int=0):
+# to prevent confusion, program will call the models in this function
+# and get the scores of the models from the user to save in the json file
+def callMultimodel(jsonfile:str, prompt:str, gemini: bool=False, claude: bool=False, gpt: bool=False, calculator: bool=False, promptnumber: int=0):
         # prompt is being printed to the console
-        text_prompt = Text(f"\nprompt{promptnumber}: {info}")
+        text_prompt = Text(f"\nprompt{promptnumber}: {prompt}")
         text_prompt.stylize("bold red",0,8)
         console.print(text_prompt)
+        
         # if claude is True, call claude
         if claude:
-            text_anth = Text("\nClaude 3.5:")
-            text_anth.stylize("bold green")
-            console.print(text_anth)
+            text_cld = Text("\nClaude 3.5:")
+            text_cld.stylize("bold green")
+            console.print(text_cld)
             print("claude 3.5 is not implemented yet")
         
         # if gpt is True, call gpt
         if gpt:
-            text_open = Text("\n\nchatGPT:")
-            text_open.stylize("bold green")
-            console.print(text_open)
-            call_gpt(info)
+            text_gpt = Text("\n\nchatGPT:")
+            text_gpt.stylize("bold green")
+            console.print(text_gpt)
+            call_gpt(prompt)
         
         # if gemini is True, call gemini
         if gemini:
             text_gem = Text("\n\nGemini:")
             text_gem.stylize("bold green")
             console.print(text_gem)
-            call_gemini(info)
+            call_gemini(prompt)
             
-        if calculator and '*' in info:
+        if calculator and '*' in prompt:
             text_calc = Text("\n\nCalculator:")
             text_calc.stylize("bold green")
             console.print(text_calc)
-            numbers = info.split('*')
+            numbers = prompt.split('*')
             print(f"{numbers[0]} * {numbers[1]} = {int(numbers[0])*int(numbers[1])}")
         
+        dict = {"gemini": gemini, "claude": claude, "gpt": gpt}
         
-
+        for model in dict: # give score to the models and save it in the json file
+            if dict[model]:
+                write_to_json(jsonfile, {"score":int(input(f"Rate the {model} model from 1 to 10: "))})
+        print(dict)
+        
+        
 @app.command()
 def introduce():
     text_intro = Text("\nMocomTool:")
@@ -67,10 +79,12 @@ def compare(info:str, gemini: bool=False, claude: bool=False, gpt: bool=False, c
         file = open(info, 'r')
         data = json.load(file)
         for index, prompt in enumerate(data):
-            callMultimodel(data[prompt]["prompt"], gemini, claude, gpt, calculator, promptnumber = index+1)
+            callMultimodel(info, data[prompt]["prompt"], gemini, claude, gpt, calculator, promptnumber = index+1)
+            input("Press Enter to continue...")
+            clear_terminal()
     else:
         # if the prompt is a single prompt, 
-        # call the models for just one prompt and info is the prompt not a file
+        # call the models for just one prompt and info is the prompt, not a file
         callMultimodel(info, gemini, claude, gpt, calculator, promptnumber = 1)
 if __name__ == "__main__":
     app()
