@@ -7,6 +7,7 @@ import json
 from terminal import clear_terminal, position
 from fileprocess import create_json_file, write_to_json
 from introduce import Introduce
+from time import time
 
 clear_terminal()
 
@@ -36,9 +37,11 @@ def callMultimodel(newFileName:str,prompt:str, gemini: bool=False, claude: bool=
             text_model = Text(f"\n{modelName}:")
             text_model.stylize("bold green")
             console.print(text_model)
+            start = time()
             theResponse = modelDict[modelName][1](prompt) # call the model function with the prompt
+            end = time()
             print(theResponse)
-            
+            console.print(f"\n{modelName}, Time taken: {round(end-start)}")
             list_of_responses.update( # save the responses in a dictionary
                 {
                 modelName: theResponse   
