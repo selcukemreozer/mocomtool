@@ -70,16 +70,19 @@ def compare(info:str, gemini: bool=False, claude: bool=False, gpt: bool=False, c
         file = open(info, 'r')
         data = json.load(file)
         
-    newFile = input("Do you want to save the responses in a new json file? (y/n): ")
-    if newFile == 'y':
-        jsonfileName = input("Enter the name of the json file: ") + ".json"
-        create_json_file(jsonfileName)
-        
-        for index, prompt in enumerate(data):
-            results = callMultimodel(newFileName=jsonfileName,prompt=data[prompt]["prompt"], gemini=gemini, claude=claude, gpt=gpt, calculator=calculator, promptnumber = index+1)
-            write_to_json(jsonfileName, results)
-            clear_terminal()
+        newFile = input("Do you want to save the responses in a new json file? (y/n): ")
+        if newFile == 'y':
+            jsonfileName = input("Enter the name of the json file: ") + ".json"
+            create_json_file(jsonfileName)
             
+            for index, prompt in enumerate(data):
+                results = callMultimodel(newFileName=jsonfileName,prompt=data[prompt]["prompt"], gemini=gemini, claude=claude, gpt=gpt, calculator=calculator, promptnumber = index+1)
+                write_to_json(jsonfileName, results)
+                clear_terminal()
+        else:
+            for index, prompt in enumerate(data):
+                callMultimodel(newFileName='',prompt=data[prompt]["prompt"], gemini=gemini, claude=claude, gpt=gpt, calculator=calculator, promptnumber = index+1)
+                clear_terminal()
     else:
         # if the prompt is a single prompt, 
         # call the models for just one prompt and info is the prompt, not a file
