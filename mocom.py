@@ -3,7 +3,7 @@ from callGPT import call_gpt
 from rich.console import Console
 from rich.text import Text
 import typer
-import json
+import json as js
 from terminal import clear_terminal, position
 from fileprocess import create_json_file, write_to_json
 from introduce import Introduce
@@ -68,7 +68,7 @@ def compare(info:str, gemini: bool=False, claude: bool=False, gpt: bool=False, c
         # if the prompt is a json file with multiple prompts, 
         # read the file and call the models for each prompt
         file = open(info, 'r')
-        data = json.load(file)
+        data = js.load(file)
         
         newFile = input("Do you want to save the responses in a new json file? (y/n): ")
         if newFile == 'y':
