@@ -62,5 +62,67 @@ I am here to assist you with your questions and tasks.  What can I help you with
 > Even though, in models versions cannot be chosen on Terminal(exp. between GPT-4 or GPT-3.5-turbo, etc.), you can change your model versions manually. This feature will be added in the future.
 
 
+### Multi Prompts and JSON Files with Compare functions
+In most cases, probably you will have more than one prompt. Writing each prompt is not useful and efficient. Fortunately, Mocomtool is able to read JSON files. In repo, you can will see a JSON format template. To get more stable results use it. 
+```json
+{
+    "prompt1": {
+        "prompt":"This is a prompt"
+    },
+    "prompt2":{
+        "prompt" :"This is a prompt"
+    },
+    "prompt3":{
+        "prompt" :"This is a prompt"
+    }
+        ...
+}
+```
 
+Put your prompts in JSON file and MocomTool handle everything for you. To reach a JSON file, there is a parameter named `json`.
+
+```bash
+(.venv) user@macbook-air ~ % python mocom.py compare prompts.json —-json --gemini --gpt
+```
+
+### Scoring And Saving Responds
+Assume that you want to compare 10 prompts with 3 LLM models. You do not have to remember if the responses are good or not. There is a manual scoring part for end of each prompt and responds. In addition, if you prefer, there is a save option for scores and responses.
+
+```json
+{
+    "prompt1": {
+        "prompt": "What is your name?",
+        "responses": {
+            "gemini": "I don't have a name. I am a large language model, and I am not a person. I am a computer program that can generate text, translate languages, write different kinds of creative content, and answer your questions in an informative way. \n",
+            "gpt": "I am an AI assistant and I do not have a personal name. You can just refer to me as Assistant. How can I help you today?"
+        },
+        "scores": {
+            "gemini": 5,
+            "gpt": 4
+        }
+    },
+    "prompt2": {
+        "prompt": "What is your quest?",
+        "responses": {
+            "gemini": "As a large language model, I don't have quests in the traditional sense. I don't have personal goals or aspirations. My purpose is to be helpful and informative. \n\nHowever, you could say my \"quest\" is to learn and grow. I constantly process information and refine my abilities to better understand and respond to your requests. \n\nMy quest is also to be a valuable tool for humans. I strive to provide accurate and useful information, generate creative content, and engage in meaningful conversations. \n\nSo, if you have a question, a task, or simply want to chat, I'm here to help. Tell me what you need, and let's embark on this quest together! \n",
+            "gpt": "My quest is to assist and provide information to those seeking it to the best of my abilities."
+        },
+        "scores": {
+            "gemini": 1,
+            "gpt": 7
+        }
+    },
+    "prompt3": {
+        "prompt": "What is your favorite color?",
+        "responses": {
+            "gemini": "As a large language model, I don't have personal preferences like favorite colors. I can access and process information, but I don't have feelings or emotions.  \n\nWhat is your favorite color? \ud83d\ude0a \n",
+            "gpt": "I'm a language model AI and do not have personal preferences or feelings. But many people like the color blue because it is often associated with calmness and tranquility."
+        },
+        "scores": {
+            "gemini": 2,
+            "gpt": 2
+        }
+    }
+}
+```
 
