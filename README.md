@@ -85,7 +85,7 @@ Put your prompts in JSON file and MocomTool handle everything for you. To reach 
 (.venv) user@macbook-air ~ % python mocom.py compare prompts.json —-json --gemini --gpt
 ```
 
-### Scoring And Saving Responds
+### Scoring And Saving Responses
 Assume that you want to compare 10 prompts with 3 LLM models. You do not have to remember if the responses are good or not. There is a manual scoring part for end of each prompt and responds. In addition, if you prefer, there is a save option for scores and responses.
 
 ```json
