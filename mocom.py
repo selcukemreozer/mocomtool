@@ -62,9 +62,9 @@ def callMultimodel(newFileName:str,prompt:str, gemini: bool=False, claude: bool=
         return currentPromptDict
             
 @app.command()
-def compare(info:str, gemini: bool=False, claude: bool=False, gpt: bool=False, calculator: bool=False, mprompt: bool=False):
+def compare(info:str, gemini: bool=False, claude: bool=False, gpt: bool=False, calculator: bool=False, json: bool=False):
     
-    if mprompt:
+    if json:
         # if the prompt is a json file with multiple prompts, 
         # read the file and call the models for each prompt
         file = open(info, 'r')
