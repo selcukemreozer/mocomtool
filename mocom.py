@@ -8,7 +8,7 @@ from terminal import clear_terminal, position
 from fileprocess import create_json_file, write_to_json
 from introduce import Introduce
 from time import time
-
+from callClaude import call_claude
 clear_terminal()
 
 app = typer.Typer()
@@ -25,7 +25,7 @@ def callMultimodel(newFileName:str,prompt:str, gemini: bool=False, claude: bool=
     modelDict = { # the dictionary that holds which models were called and their functions
         "gemini": [gemini, call_gemini],
         "gpt":    [gpt, call_gpt],
-        "claude": [claude,print],
+        "claude": [claude,call_claude],
         "calculator": [calculator,print] # calculator is not ready yet
                  }
     currentPromptDict = {f"prompt{promptnumber}": {"prompt": prompt}}
