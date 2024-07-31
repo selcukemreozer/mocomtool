@@ -8,7 +8,7 @@ MocomTool(Model Compare Tool)is a CLI App that allows developers to compare LLM 
 ### LLM Models ​​currently supported by Mocomtool
 - Google Gemini(_Not Advanced_)
 - OpenAI GPT-3.5-Turbo
-- Claude3.5 Sonnet(_soon_)
+- Claude3.5 Sonnet
 
 ## What Exactly MocomTool is
 MocomTool does not enable users to reach LLM models without `API KEYs` provided by services. To use MocomTool, you need a `.env` file that includes API keys.
