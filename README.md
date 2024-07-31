@@ -63,7 +63,7 @@ I am here to assist you with your questions and tasks.  What can I help you with
 
 
 ### Multi Prompts and JSON Files with Compare functions
-In most cases, probably you will have more than one prompt. Writing each prompt is not useful and efficient. Fortunately, Mocomtool is able to read JSON files. In repo, you can will see a JSON format template. To get more stable results use it. 
+In most cases, probably you will have more than one prompt. Writing each prompt is not useful and efficient. Fortunately, Mocomtool is able to read JSON files. In repo, you will see a JSON format template. To get more stable results use it. 
 ```json
 {
     "prompt1": {
