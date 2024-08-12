@@ -41,7 +41,7 @@ def callMultimodel(newFileName:str,prompt:str, gemini: bool=False, claude: bool=
             theResponse = modelDict[modelName][1](prompt) # call the model function with the prompt
             end = time()
             print(theResponse)
-            console.print(f"\n{modelName}, Time taken: {round(end-start)}")
+            console.print(f"\n  Time taken: {round(end-start)}")
             list_of_responses.update( # save the responses in a dictionary
                 {
                 modelName: theResponse   
