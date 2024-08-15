@@ -2,8 +2,6 @@
 .env
 /llama3
 envcom.txt
-__pycache__/callGemini.cpython-310.pyc
-__pycache__/callGPT.cpython-310.pyc
 CLItest.py
 .DS_Store
 model_sand_box.py
@@ -11,9 +9,8 @@ readmeTemplate.rtf
 prompts.json
 cursepositiontest.py
 test.json
-__pycache__/terminal.cpython-310.pyc
 mtest.py
-__pycache__/fileprocess.cpython-310.pyc
-__pycache__/introduce.cpython-310.pyc
 results.json
 /videos
+/__pycache__
+*.pyc
