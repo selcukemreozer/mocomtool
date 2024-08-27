@@ -9,6 +9,7 @@ from fileprocess import create_json_file, write_to_json
 from introduce import Introduce
 from time import time
 from callClaude import call_claude
+from callLLAMA import call_ollama, call_groq
 clear_terminal()
 
 app = typer.Typer()
@@ -16,7 +17,7 @@ console = Console()
 
 # to prevent confusion, program will call the models in this function
 # and get the scores of the models from the user to save in the json file
-def callMultimodel(newFileName:str,prompt:str, gemini: bool=False, claude: bool=False, gpt: bool=False, calculator: bool=False, promptnumber: int=0):
+def callMultimodel(newFileName:str,prompt:str, gemini: bool=False, claude: bool=False, gpt: bool=False, calculator: bool=False, ollama: bool=False, groq: bool=False, promptnumber: int=0):
     # prompt is being printed to the console
     text_prompt = Text(f"\nprompt {['' if promptnumber == 0 else promptnumber][0]}: {prompt}")
     text_prompt.stylize("bold red",0,10)
@@ -26,7 +27,9 @@ def callMultimodel(newFileName:str,prompt:str, gemini: bool=False, claude: bool=
         "gemini": [gemini, call_gemini],
         "gpt":    [gpt, call_gpt],
         "claude": [claude,call_claude],
-        "calculator": [calculator,print] # calculator is not ready yet
+        "calculator": [calculator,print], # calculator is not ready yet
+        "ollama": [ollama, call_ollama],
+        "groq": [groq, call_groq]
                  }
     currentPromptDict = {f"prompt{promptnumber}": {"prompt": prompt}}
     list_of_responses = dict()
@@ -62,7 +65,7 @@ def callMultimodel(newFileName:str,prompt:str, gemini: bool=False, claude: bool=
         return currentPromptDict
             
 @app.command()
-def compare(info:str, gemini: bool=False, claude: bool=False, gpt: bool=False, calculator: bool=False, json: bool=False):
+def compare(info:str, gemini: bool=False, claude: bool=False, gpt: bool=False, calculator: bool=False, json: bool=False, ollama: bool=False, groq: bool=False):
     
     if json:
         # if the prompt is a json file with multiple prompts, 
@@ -76,17 +79,17 @@ def compare(info:str, gemini: bool=False, claude: bool=False, gpt: bool=False, c
             create_json_file(jsonfileName)
             
             for index, prompt in enumerate(data):
-                results = callMultimodel(newFileName=jsonfileName,prompt=data[prompt]["prompt"], gemini=gemini, claude=claude, gpt=gpt, calculator=calculator, promptnumber = index+1)
+                results = callMultimodel(newFileName=jsonfileName,prompt=data[prompt]["prompt"], gemini=gemini, claude=claude, gpt=gpt, ollama=ollama, groq=groq, calculator=calculator, promptnumber = index+1)
                 write_to_json(jsonfileName, results)
                 clear_terminal()
         else:
             for index, prompt in enumerate(data):
-                callMultimodel(newFileName='',prompt=data[prompt]["prompt"], gemini=gemini, claude=claude, gpt=gpt, calculator=calculator, promptnumber = index+1)
+                callMultimodel(newFileName='',prompt=data[prompt]["prompt"], gemini=gemini, claude=claude, gpt=gpt, qroq=groq, ollama=ollama, calculator=calculator, promptnumber = index+1)
                 clear_terminal()
     else:
         # if the prompt is a single prompt, 
         # call the models for just one prompt and info is the prompt, not a file
-        callMultimodel(newFileName='', prompt=info, gemini=gemini, claude=claude, gpt=gpt, calculator=calculator)
+        callMultimodel(newFileName='', prompt=info, gemini=gemini, claude=claude, gpt=gpt, ollama=ollama, groq=groq, calculator=calculator)
         
 @app.command()
 def introduce():
