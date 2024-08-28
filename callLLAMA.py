@@ -28,6 +28,3 @@ def call_groq(prompt:str='just write <no prompt>'):
     )
 
     return chat_completion.choices[0].message.content
-
-response = call_groq(prompt='What is the meaning of life?')
-print(response)
