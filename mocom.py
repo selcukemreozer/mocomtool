@@ -9,7 +9,7 @@ from fileprocess import create_json_file, write_to_json
 from introduce import Introduce
 from time import time
 from callClaude import call_claude
-from callLLAMA import call_ollama, call_groq
+from callOther import call_ollama, call_groq
 clear_terminal()
 
 app = typer.Typer()
@@ -17,7 +17,12 @@ console = Console()
 
 # to prevent confusion, program will call the models in this function
 # and get the scores of the models from the user to save in the json file
-def callMultimodel(newFileName:str,prompt:str, gemini: bool=False, claude: bool=False, gpt: bool=False, calculator: bool=False, ollama: bool=False, groq: bool=False, promptnumber: int=0):
+def callMultimodel(newFileName:str,prompt:str,
+                   gemini: bool=False, claude: bool=False, gpt: bool=False,
+                   calculator: bool=False, 
+                   ollama: bool=False, groq: bool=False, 
+                   promptnumber: int=0) -> dict:
+    
     # prompt is being printed to the console
     text_prompt = Text(f"\nprompt {['' if promptnumber == 0 else promptnumber][0]}: {prompt}")
     text_prompt.stylize("bold red",0,10)
@@ -65,7 +70,9 @@ def callMultimodel(newFileName:str,prompt:str, gemini: bool=False, claude: bool=
         return currentPromptDict
             
 @app.command()
-def compare(info:str, gemini: bool=False, claude: bool=False, gpt: bool=False, calculator: bool=False, json: bool=False, ollama: bool=False, groq: bool=False):
+def compare(info:str, gemini: bool=False, claude: bool=False, 
+            gpt: bool=False, calculator: bool=False, 
+            ollama: bool=False, groq: bool=False, json: bool=False):
     
     if json:
         # if the prompt is a json file with multiple prompts, 

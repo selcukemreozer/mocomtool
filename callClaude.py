@@ -1,4 +1,5 @@
 import anthropic
+from models import CLAUDE_MODEL_NAME
 import os
 def call_claude(prompt):
     claudeapi: str = os.environ.get("ANTHROPIC_API_KEY")
@@ -7,7 +8,7 @@ def call_claude(prompt):
         api_key=claudeapi,
     )
     message = client.messages.create(
-        model="claude-3-5-sonnet-20240620",
+        model=CLAUDE_MODEL_NAME,
         max_tokens=1024,
         messages=[
             {"role": "user", "content": prompt}

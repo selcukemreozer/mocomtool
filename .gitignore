@@ -14,3 +14,5 @@ results.json
 /videos
 /__pycache__
 *.pyc
+gptAlternativeVersion.py
+test.py

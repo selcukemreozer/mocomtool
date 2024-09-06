@@ -1,10 +1,11 @@
 import ollama
 from groq import Groq
 import os
+from models import OLLAMA_MODEL_NAME, GROQ_MODEL_NAME
 
-def call_ollama(prompt:str='just write <no prompt>'):
+def call_ollama(prompt:str='just write <no prompt>') -> str:
     response = str()
-    response = ollama.chat(model='llama3.1:8b', messages=[
+    response = ollama.chat(model=OLLAMA_MODEL_NAME, messages=[
         {
             'role': 'user',
             'content': prompt,
@@ -12,7 +13,7 @@ def call_ollama(prompt:str='just write <no prompt>'):
     ])
     return response['message']['content']
 
-def call_groq(prompt:str='just write <no prompt>'):
+def call_groq(prompt:str='just write <no prompt>') -> str:
     client = Groq(
     api_key=os.environ.get("GROQ_API_KEY"),
     )
@@ -24,7 +25,7 @@ def call_groq(prompt:str='just write <no prompt>'):
                 "content": prompt,
             }
         ],
-        model="llama-3.1-70b-versatile",
+        model=GROQ_MODEL_NAME,
     )
 
     return chat_completion.choices[0].message.content
