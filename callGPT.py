@@ -9,7 +9,7 @@ def call_gpt(prompt:str='just write <no prompt>'):
     client = OpenAI(api_key=openaiapi)
 
     stream = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4o-mini",
         messages=[
             #{"role": "system", "content": ""},
             {"role": "user", "content": prompt},
@@ -23,22 +23,3 @@ def call_gpt(prompt:str='just write <no prompt>'):
     
     return response
           
-def call_gpt_test(prompt:str='just write <no prompt>'):
-    response = str()
-    openaiapi: str = os.environ.get("OPENAI_API_KEY")
-    client = OpenAI(api_key=openaiapi)
-
-    stream = client.chat.completions.create(
-        model="gpt-3.5-turbo",
-        messages=[
-            #{"role": "system", "content": ""},
-            {"role": "user", "content": prompt},
-        ],
-        stream=True,
-    )
-
-    for chunk in stream:
-        if chunk.choices[0].delta.content is not None:
-            response +=chunk.choices[0].delta.content
-    
-    return response
