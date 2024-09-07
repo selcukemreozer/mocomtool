@@ -6,9 +6,12 @@ MocomTool(Model Compare Tool)is a CLI App that allows developers to compare LLM 
 
 
 ### LLM Models ​​currently supported by Mocomtool
-- Google Gemini(_Not Advanced_)
-- OpenAI GPT-3.5-Turbo
-- Claude3.5 Sonnet
+- Google Gemini(_and Advanced_)
+- OpenAI all GPT models
+- Claude3.5 Sonnet (_and other_)
+- All open-source models (running locally with **Ollama**)
+- All models (running with **Groq** on cloud infrastructure)
+
 
 ## What Exactly MocomTool is
 MocomTool does not enable users to reach LLM models without `API KEYs` provided by services. To use MocomTool, you need a `.env` file that includes API keys.
@@ -19,12 +22,27 @@ You can find a template for the `.env` file named `env_template` in this repo. C
 ```bash
 (.venv) user@macbook-air ~ % pip install -r requirements.txt
 ```
+
 ## Help
 #### Function [introduce]
 MocomTool includes a guide. When you are stuck while using MocomTool call the `[introduce]` function, to see functions and parameters, which you can use.
+
 ```bash
 (.venv) user@macbook-air ~ % python mocom.py introduce
 ```
+## Configuring Models for Comparison
+
+Set the names of the models you want to compare easily in the `models.py` file.
+
+```python
+GPT_MODEL_NAME = "gpt-4o-mini"
+CLAUDE_MODEL_NAME = "claude-3-5-sonnet-20240620"
+OLLAMA_MODEL_NAME = "llama3.1:8b"
+GROQ_MODEL_NAME = "llama-3.1-8b-instant"
+GEMINI_MODEL_NAME = "gemini-1.5-flash"
+
+```
+
 ## Giving Basic Prompts and Choosing Models for Comparing
 After installing MocomTool from this repo, you will run `mocom.py` in `Terminal`. MocomTool was designed as a CLI App. So you can use it from the Terminal easily.
 
@@ -62,7 +80,7 @@ I am here to assist you with your questions and tasks.  What can I help you with
 > Even though, in models versions cannot be chosen on Terminal(exp. between GPT-4 or GPT-3.5-turbo, etc.), you can change your model versions manually. This feature will be added in the future.
 
 
-### Multi Prompts and JSON Files with Compare functions
+## Multi Prompts and JSON Files with Compare functions
 In most cases, probably you will have more than one prompt. Writing each prompt is not useful and efficient. Fortunately, Mocomtool is able to read JSON files. In repo, you will see a JSON format template. To get more stable results use it. 
 ```json
 {
@@ -125,4 +143,7 @@ Assume that you want to compare 10 prompts with 3 LLM models. You do not have to
     }
 }
 ```
+
+### Open-Source Models with [Ollama](https://ollama.com) and [Groq](https://groq.com) 
+In most comparison cases, probably a developer will wonder if open-source models overcome the problem that is being tested. Mocomtool includes **Ollama** and **Groq** supports. If you do not know what they are, definitely take a look.
 
