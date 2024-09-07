@@ -76,8 +76,6 @@ Here are some things you should know about me:
 I am here to assist you with your questions and tasks.  What can I help you with today? 
 
 ```
-> [!NOTE]
-> Even though, in models versions cannot be chosen on Terminal(exp. between GPT-4 or GPT-3.5-turbo, etc.), you can change your model versions manually. This feature will be added in the future.
 
 
 ## Multi Prompts and JSON Files with Compare functions
@@ -146,4 +144,5 @@ Assume that you want to compare 10 prompts with 3 LLM models. You do not have to
 
 ### Open-Source Models with [Ollama](https://ollama.com) and [Groq](https://groq.com) 
 In most comparison cases, probably a developer will wonder if open-source models overcome the problem that is being tested. Mocomtool includes **Ollama** and **Groq** supports. If you do not know what they are, definitely take a look.
+
 
