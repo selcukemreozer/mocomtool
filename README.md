@@ -197,7 +197,7 @@ ___
 
 ### Call Multi-Models with One Word
 
-If you would like to test all models or multi-models at the same time, you do not have to type all of their names. Check `model.py`, you will see a `dict` named `CALL_ALL_MODELS`.
+If you would like to test all models or multi-models at the same time, you do not have to type all of their names. Check `models.py`, you will see a `dict` named `CALL_ALL_MODELS`.
 
 
 ```python
