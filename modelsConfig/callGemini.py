@@ -1,6 +1,6 @@
 # gemini calling func
 import google.generativeai as genai
-from models import GEMINI_MODEL_NAME
+from .models import GEMINI_MODEL_NAME
 import os
 
 def call_gemini(prompt:str='just write <no prompt>'):

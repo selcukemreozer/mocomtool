@@ -1,5 +1,4 @@
-from callGemini import call_gemini
-from callGPT import call_gpt
+from modelsConfig import call_gemini, call_claude, call_groq, call_ollama, call_gpt, CALL_ALL_MODELS
 from rich.console import Console
 from rich.text import Text
 import typer
@@ -8,9 +7,6 @@ from terminal import clear_terminal, position
 from fileprocess import create_json_file, write_to_json
 from introduce import Introduce
 from time import time
-from callClaude import call_claude
-from callOther import call_ollama, call_groq
-from models import CALL_ALL_MODELS
 # from tiktoken 
 
 clear_terminal()

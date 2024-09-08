@@ -1,7 +1,7 @@
 import ollama
 from groq import Groq
 import os
-from models import OLLAMA_MODEL_NAME, GROQ_MODEL_NAME
+from .models import OLLAMA_MODEL_NAME, GROQ_MODEL_NAME
 
 def call_ollama(prompt:str='just write <no prompt>') -> list:
     response = str()

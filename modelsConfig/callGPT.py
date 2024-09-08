@@ -1,6 +1,6 @@
 # gpt calling func
 from openai import OpenAI
-from models import GPT_MODEL_NAME
+from .models import GPT_MODEL_NAME
 import os
 
 def call_gpt(prompt:str='just write <no prompt>') -> str:

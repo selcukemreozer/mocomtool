@@ -4,9 +4,9 @@ OLLAMA_MODEL_NAME = "gemma2:2b"
 GROQ_MODEL_NAME = "llama-3.1-8b-instant"
 GEMINI_MODEL_NAME = "gemini-1.5-flash"
 
-CALL_ALL_MODELS = {'gpt'   :False,
-                   'gemini':False,
+CALL_ALL_MODELS = {'gpt'   :True,
+                   'gemini':True,
                    'claude':False,
                    'groq'  :False,
-                   'ollama':False,
+                   'ollama':True,
                    }

@@ -22,6 +22,6 @@ def write_to_json(filename, data):
 def create_json_file(name,data_top_level=dict()):
     with open(name, "w") as f:
         json.dump(data_top_level, f, indent=4)
-    print(f"\nFile {name}.json is created.")
+    print(f"\nFile {name} is created.")
     return "data.json"
 

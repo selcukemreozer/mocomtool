@@ -1,5 +1,5 @@
 import anthropic
-from models import CLAUDE_MODEL_NAME
+from .models import CLAUDE_MODEL_NAME
 import os
 def call_claude(prompt):
     claudeapi: str = os.environ.get("ANTHROPIC_API_KEY")
