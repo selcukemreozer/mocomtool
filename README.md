@@ -38,7 +38,7 @@ MocomTool includes a guide. When you are stuck while using MocomTool call the `[
 
 ## Configuring Models for Comparison
 
-Set the names of the models you want to compare easily in the `models.py` file.
+Set the names of the models you want to compare easily in the `modelsConfig/models.py` file.
 
 ```python
 GPT_MODEL_NAME    = "gpt-4o-mini"
@@ -158,7 +158,7 @@ Assume that you want to compare 10 prompts with 3 LLM models. You do not have to
 ### Open-Source Models with [Ollama](https://ollama.com) and [Groq](https://groq.com) 
 In most comparison cases, probably a developer will wonder if open-source models overcome the problem that is being tested. Mocomtool includes **Ollama** and **Groq** supports. If you do not know what they are, definitely take a look.
 
-To use **Ollama** and **Groq**, choose your models in `models.py`
+To use **Ollama** and **Groq**, choose your models in `modelsConfig/models.py`
 
 ```python
 OLLAMA_MODEL_NAME = "gemma2:2b"
@@ -197,7 +197,7 @@ ___
 
 ### Call Multi-Models with One Word
 
-If you would like to test all models or multi-models at the same time, you do not have to type all of their names. Check `models.py`, you will see a `dict` named `CALL_ALL_MODELS`.
+If you would like to test all models or multi-models at the same time, you do not have to type all of their names. Check `modelsConfig/models.py`, you will see a `dict` named `CALL_ALL_MODELS`.
 
 
 ```python
