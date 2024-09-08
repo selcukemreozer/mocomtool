@@ -145,4 +145,16 @@ Assume that you want to compare 10 prompts with 3 LLM models. You do not have to
 ### Open-Source Models with [Ollama](https://ollama.com) and [Groq](https://groq.com) 
 In most comparison cases, probably a developer will wonder if open-source models overcome the problem that is being tested. Mocomtool includes **Ollama** and **Groq** supports. If you do not know what they are, definitely take a look.
 
+To use **Ollama** and **Groq**, choose your models in `models.py`
 
+```python
+OLLAMA_MODEL_NAME = "llama3.1:8b"
+GROQ_MODEL_NAME   = "llama-3.1-8b-instant"
+
+```
+and call them on `terminal`
+
+```bash
+
+ 
+```

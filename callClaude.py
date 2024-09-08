@@ -14,4 +14,4 @@ def call_claude(prompt):
             {"role": "user", "content": prompt}
         ]
     )
-    return message.content[0].text
+    return [message.content[0].text, CLAUDE_MODEL_NAME]

@@ -16,3 +16,4 @@ results.json
 *.pyc
 gptAlternativeVersion.py
 test.py
+/__pycache__

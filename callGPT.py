@@ -21,5 +21,5 @@ def call_gpt(prompt:str='just write <no prompt>') -> str:
         if chunk.choices[0].delta.content is not None:
             response +=chunk.choices[0].delta.content
     
-    return response
+    return [response, GPT_MODEL_NAME]
           

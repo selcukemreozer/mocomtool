@@ -10,5 +10,5 @@ def call_gemini(prompt:str='just write <no prompt>'):
     
     model = genai.GenerativeModel(model_name=GEMINI_MODEL_NAME)
     response = model.generate_content([prompt])
-    return response.text
+    return [response.text, GEMINI_MODEL_NAME]
     

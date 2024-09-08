@@ -3,7 +3,7 @@ from groq import Groq
 import os
 from models import OLLAMA_MODEL_NAME, GROQ_MODEL_NAME
 
-def call_ollama(prompt:str='just write <no prompt>') -> str:
+def call_ollama(prompt:str='just write <no prompt>') -> list:
     response = str()
     response = ollama.chat(model=OLLAMA_MODEL_NAME, messages=[
         {
@@ -11,7 +11,7 @@ def call_ollama(prompt:str='just write <no prompt>') -> str:
             'content': prompt,
         },
     ])
-    return response['message']['content']
+    return [response['message']['content'], OLLAMA_MODEL_NAME]
 
 def call_groq(prompt:str='just write <no prompt>') -> str:
     client = Groq(
@@ -28,4 +28,4 @@ def call_groq(prompt:str='just write <no prompt>') -> str:
         model=GROQ_MODEL_NAME,
     )
 
-    return chat_completion.choices[0].message.content
+    return [chat_completion.choices[0].message.content, GROQ_MODEL_NAME]
