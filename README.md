@@ -173,7 +173,7 @@ and call them on `terminal`
 ```
 
 
-######Output
+###### Output
 
 ```bash
 prompt : hello
@@ -195,10 +195,9 @@ Hello! 👋  How can I help you today? 😄
 ```
 ___
 
-###Call Multi-Models with One Word
+### Call Multi-Models with One Word
 
 If you would like to test all models or multi-models at the same time, you do not have to type all of their names. Check `model.py`, you will see a `dict` named `CALL_ALL_MODELS`.
-
 
 
 ```python
