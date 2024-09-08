@@ -199,7 +199,7 @@ ___
 
 If you would like to test all models or multi-models at the same time, you do not have to type all of their names. Check `model.py`, you will see a `dict` named `CALL_ALL_MODELS`.
 
-######in models.py
+#####in models.py
 
 ```python
 CALL_ALL_MODELS = {'gpt'   :False,
