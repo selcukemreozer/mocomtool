@@ -96,7 +96,7 @@ In most cases, probably you will have more than one prompt. Writing each prompt 
 ```json
 {
     "prompt1": {
-        "prompt":"This is a prompt"
+        "prompt" :"This is a prompt"
     },
     "prompt2":{
         "prompt" :"This is a prompt"
