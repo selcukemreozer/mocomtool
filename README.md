@@ -16,7 +16,7 @@ MocomTool(Model Compare Tool)is a CLI App that allows developers to compare LLM 
 ## What Exactly MocomTool is
 
 MocomTool does not enable users to reach LLM models without `API KEYs` provided by services. To use MocomTool, you need a `.env` file that includes API keys.
-You can find a template for the `.env` file named `env_template` in this repo. Check it. The tool is a helper for developers in choosing the best LLM model in their case.
+You can find a template for the `.env` file named `templates/env_template` in this repo. Check it. The tool is a helper for developers in choosing the best LLM model in their case.
 
 > [!TIP]
 > Before starting, you might prefer to install requirements for an easy installation.
@@ -92,7 +92,7 @@ I am here to assist you with your questions and tasks.  What can I help you with
 
 
 ## Multi Prompts and JSON Files with Compare functions
-In most cases, probably you will have more than one prompt. Writing each prompt is not useful and efficient. Fortunately, Mocomtool is able to read JSON files. In repo, you will see a JSON format template. To get more stable results use it. 
+In most cases, probably you will have more than one prompt. Writing each prompt is not useful and efficient. Fortunately, Mocomtool is able to read JSON files. In repo, you will see a JSON format template in `templates/`. To get more stable results use it. 
 ```json
 {
     "prompt1": {
